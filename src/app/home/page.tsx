@@ -5,7 +5,7 @@ const DashboardPage: React.FC = () => {
     <div>
       <h1 className="text-2xl font-bold text-[#003654] mb-4">Dashboard</h1>
       <div className="w-[100%] flex flex-row gap-32 space-y-4">    
-<div className="">
+<div className="w-[50%]">
 <StatisticsChart />
 
 </div>
