@@ -40,7 +40,7 @@ const PromoCodeModal: React.FC<{ isOpen: boolean, onClose: () => void, onAddProm
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex items-center justify-center min-h-full p-4 text-center">
+          <div className="flex items-center justify-center min-h-full p-4 text-center sm:p-6">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -50,7 +50,7 @@ const PromoCodeModal: React.FC<{ isOpen: boolean, onClose: () => void, onAddProm
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                 <Card>
                   <CardHeader>
                     <CardTitle>Create Promo Code</CardTitle>
@@ -72,8 +72,8 @@ const PromoCodeModal: React.FC<{ isOpen: boolean, onClose: () => void, onAddProm
                       <div>
                         <label className="block text-sm font-bold text-gray-700">Discount</label>
                         <input
-                        placeholder='e.g. "10"'
                           type="number"
+                          placeholder='e.g. "10"'
                           value={discount}
                           onChange={(e) => setDiscount(e.target.value)}
                           className="w-full px-3 py-2 border rounded-lg"
@@ -83,8 +83,8 @@ const PromoCodeModal: React.FC<{ isOpen: boolean, onClose: () => void, onAddProm
                       <div>
                         <label className="block text-sm font-bold text-gray-700">Influencer</label>
                         <input
-                        placeholder='e.g. "Jodloo"'
                           type="text"
+                          placeholder='e.g. "Jodloo"'
                           value={influencer}
                           onChange={(e) => setInfluencer(e.target.value)}
                           className="w-full px-3 py-2 border rounded-lg"
@@ -94,7 +94,7 @@ const PromoCodeModal: React.FC<{ isOpen: boolean, onClose: () => void, onAddProm
                       <div className="mt-4">
                         <button
                           type="submit"
-                          className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg"
+                          className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700"
                         >
                           Add Promo Code
                         </button>
@@ -104,7 +104,7 @@ const PromoCodeModal: React.FC<{ isOpen: boolean, onClose: () => void, onAddProm
                   <CardFooter className="flex justify-end">
                     <button
                       type="button"
-                      className="px-4 py-2 text-white bg-red-600 rounded-lg"
+                      className="px-4 py-2 text-white bg-red-600 rounded-lg hover:bg-red-700"
                       onClick={onClose}
                     >
                       Cancel

@@ -2,14 +2,13 @@ import StatisticsChart from "@/components/ui/Chhhart";
 
 const DashboardPage: React.FC = () => {
   return (
-    <div>
+    <div className="p-4">
       <h1 className="text-2xl font-bold text-[#003654] mb-4">Dashboard</h1>
-      <div className="w-[100%] flex flex-row gap-32 space-y-4">    
-<div className="w-[50%]">
-<StatisticsChart />
-
-</div>
-        <div className="grid grid-cols-1 gap-4">
+      <div className="flex flex-col lg:flex-row gap-4 lg:gap-32">
+        <div className="w-full lg:w-1/2">
+          <StatisticsChart />
+        </div>
+        <div className="grid grid-cols-1 gap-4 w-full lg:w-1/2">
           <div className="bg-white shadow-md rounded-lg p-6 flex items-center">
             <div className="w-16 h-16 flex items-center justify-center bg-blue-100 text-blue-600 rounded-full">
               <span className="text-2xl font-bold">1000</span>

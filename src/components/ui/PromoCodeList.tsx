@@ -22,7 +22,7 @@ const PromoCodeTable: React.FC<PromoCodeTableProps> = ({ promoCodes, searchQuery
 
   return (
     <div className="overflow-x-auto bg-white p-4 rounded-lg shadow-md">
-      <Table>
+      <Table className="min-w-full">
         <TableHeader>
           <TableRow>
             <TableHead>Name</TableHead>
@@ -34,7 +34,7 @@ const PromoCodeTable: React.FC<PromoCodeTableProps> = ({ promoCodes, searchQuery
           {filteredPromoCodes.length > 0 ? (
             filteredPromoCodes.map((promoCode) => (
               <TableRow key={promoCode.id}>
-                <TableCell>Alice</TableCell>
+                <TableCell>{promoCode.name}</TableCell>
                 <TableCell>{promoCode.code}</TableCell>
                 <TableCell>{promoCode.discount}%</TableCell>
               </TableRow>

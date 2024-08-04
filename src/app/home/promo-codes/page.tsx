@@ -17,13 +17,13 @@ const PromoCodesPage: React.FC = () => {
   };
 
   return (
-    <div className="relative p-4">
-      <h1 className="text-2xl font-bold text-[#003654] mb-4">Promo Codes</h1>
+    <div className="relative p-4 md:p-6 lg:p-8">
+      <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#003654] mb-4 md:mb-6 lg:mb-8">Promo Codes</h1>
       <Input
         placeholder="Search by name or code"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="mb-4"
+        className="mb-4 p-2 border rounded-lg w-full"
       />
       {promoCodes.length > 0 ? (
         <PromoCodeTable promoCodes={promoCodes} searchQuery={searchQuery} />
@@ -34,7 +34,7 @@ const PromoCodesPage: React.FC = () => {
       )}
       <button
         title="Add Promo Code"
-        className="fixed bottom-10 right-20 bg-blue-600 text-white px-5 py-3 rounded-full shadow-lg"
+        className="fixed bottom-10 right-10 md:right-20 bg-blue-600 text-white px-5 py-3 rounded-full shadow-lg"
         onClick={() => setIsModalOpen(true)}
       >
         <FontAwesomeIcon icon={faPlus} />

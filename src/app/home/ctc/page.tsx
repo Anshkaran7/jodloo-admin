@@ -122,8 +122,8 @@ const CTCPage: React.FC = () => {
   };
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold text-[#003654] mb-4">CTC Data</h1>
+    <div className="p-4 md:p-6 lg:p-8">
+      <h1 className="text-2xl md:text-3xl font-bold text-[#003654] mb-4">CTC Data</h1>
       <div className="mb-4">
         <div className="flex flex-wrap gap-4">
           <div className="flex flex-col w-full md:w-auto">
@@ -162,37 +162,37 @@ const CTCPage: React.FC = () => {
         <Button onClick={handleFilter} className="mt-4">Filter</Button>
       </div>
       <div className="mb-8">
-  <h2 className="text-xl font-semibold text-[#003654] mb-4">Statistics</h2>
-  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-    <div className="bg-white shadow-md rounded-lg p-6 flex items-center">
-      <div className="w-16 h-16 flex items-center justify-center bg-blue-100 text-blue-600 rounded-full">
-        <span className="text-2xl font-bold">{averageRating.toFixed(2)}</span>
+        <h2 className="text-xl font-semibold text-[#003654] mb-4">Statistics</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-white shadow-md rounded-lg p-6 flex items-center">
+            <div className="w-16 h-16 flex items-center justify-center bg-blue-100 text-blue-600 rounded-full">
+              <span className="text-2xl font-bold">{averageRating.toFixed(2)}</span>
+            </div>
+            <div className="ml-4">
+              <p className="text-lg font-semibold text-[#003654]">Average Rating</p>
+              <p className="text-sm text-gray-500">Based on user reviews</p>
+            </div>
+          </div>
+          <div className="bg-white shadow-md rounded-lg p-6 flex items-center">
+            <div className="w-16 h-16 flex items-center justify-center bg-green-100 text-green-600 rounded-full">
+              <span className="text-2xl font-bold">{fiveStarCount}</span>
+            </div>
+            <div className="ml-4">
+              <p className="text-lg font-semibold text-[#003654]">5-Star Ratings</p>
+              <p className="text-sm text-gray-500">Total number of 5-star ratings</p>
+            </div>
+          </div>
+          <div className="bg-white shadow-md rounded-lg p-6 flex items-center">
+            <div className="w-16 h-16 flex items-center justify-center bg-yellow-100 text-yellow-600 rounded-full">
+              <span className="text-2xl font-bold">{fiveStarPercentage.toFixed(2)}%</span>
+            </div>
+            <div className="ml-4">
+              <p className="text-lg font-semibold text-[#003654]">5-Star Percentage</p>
+              <p className="text-sm text-gray-500">Percentage of 5-star ratings</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="ml-4">
-        <p className="text-lg font-semibold text-[#003654]">Average Rating</p>
-        <p className="text-sm text-gray-500">Based on user reviews</p>
-      </div>
-    </div>
-    <div className="bg-white shadow-md rounded-lg p-6 flex items-center">
-      <div className="w-16 h-16 flex items-center justify-center bg-green-100 text-green-600 rounded-full">
-        <span className="text-2xl font-bold">{fiveStarCount}</span>
-      </div>
-      <div className="ml-4">
-        <p className="text-lg font-semibold text-[#003654]">5-Star Ratings</p>
-        <p className="text-sm text-gray-500">Total number of 5-star ratings</p>
-      </div>
-    </div>
-    <div className="bg-white shadow-md rounded-lg p-6 flex items-center">
-      <div className="w-16 h-16 flex items-center justify-center bg-yellow-100 text-yellow-600 rounded-full">
-        <span className="text-2xl font-bold">{fiveStarPercentage.toFixed(2)}%</span>
-      </div>
-      <div className="ml-4">
-        <p className="text-lg font-semibold text-[#003654]">5-Star Percentage</p>
-        <p className="text-sm text-gray-500">Percentage of 5-star ratings</p>
-      </div>
-    </div>
-  </div>
-</div>
 
       <div className="mb-4 flex flex-wrap gap-4">
         <CSVLink data={reviews} filename="ctc-data.csv">

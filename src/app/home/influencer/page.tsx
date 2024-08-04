@@ -88,55 +88,55 @@ const InfluencerDataPage: React.FC = () => {
   }, [searchQuery]);
 
   return (
-    <div className="p-4">
+    <div className="p-4 md:p-6 lg:p-8 bg-gray-100 min-h-screen">
       <Toaster position='bottom-right'/>
-      <h1 className="text-3xl font-bold text-[#003654] mb-8">Influencer Data</h1>
+      <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#003654] mb-6">Influencer Data</h1>
       
-      <div className="mb-4">
+      <div className="mb-6">
         <Input
           placeholder="Search by name or promo code"
           value={searchQuery}
           onChange={handleSearch}
-          className="w-full p-2 border rounded-lg"
+          className="w-full p-2 border rounded-lg shadow-sm"
         />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
         {influencers.map((influencer) => (
           <Card key={influencer.id} className="bg-white shadow-lg rounded-lg overflow-hidden">
             <CardHeader className="bg-[#003654] text-white p-4">
-              <CardTitle className="text-xl font-semibold">{influencer.name}</CardTitle>
+              <CardTitle className="text-lg md:text-xl font-semibold">{influencer.name}</CardTitle>
               <CardDescription className="text-sm">Promo Code: {influencer.promoCode}</CardDescription>
             </CardHeader>
-            <CardContent className="p-6 space-y-4">
+            <CardContent className="p-4 space-y-2">
               <div className="flex justify-between">
-                <div className="text-sm font-medium">Total Users</div>
+                <div className="text-sm">Total Users</div>
                 <div className="text-lg font-semibold">{influencer.totalUsers}</div>
               </div>
               <div className="flex justify-between">
-                <div className="text-sm font-medium">Total Paid Subscribers</div>
+                <div className="text-sm">Total Paid Subscribers</div>
                 <div className="text-lg font-semibold">{influencer.totalPaidSubscribers}</div>
               </div>
               <div className="flex justify-between">
-                <div className="text-sm font-medium">Paid Subscribers This Month</div>
+                <div className="text-sm">Paid Subscribers This Month</div>
                 <div className="text-lg font-semibold">{influencer.paidSubscribersThisMonth}</div>
               </div>
               <div className="flex justify-between">
-                <div className="text-sm font-medium">Promo Code Validity</div>
+                <div className="text-sm">Promo Code Validity</div>
                 <div className={`text-lg font-semibold ${influencer.promoCodeValidity > new Date() ? 'text-green-500' : 'text-red-500'}`}>
                   {influencer.promoCodeValidity > new Date() ? 'Valid' : 'Expired'}
                 </div>
               </div>
               <div className="flex justify-between">
-                <div className="text-sm font-medium">Days Left for Promo Code</div>
+                <div className="text-sm">Days Left for Promo Code</div>
                 <div className="text-lg font-semibold">{differenceInDays(influencer.promoCodeValidity, new Date())}</div>
               </div>
               <div className="flex justify-between">
-                <div className="text-sm font-medium">Total Paid</div>
+                <div className="text-sm">Total Paid</div>
                 <div className="text-lg font-semibold">${influencer.paymentDetails.totalPaid}</div>
               </div>
               <div className="flex justify-between">
-                <div className="text-sm font-medium">Pending Payment</div>
+                <div className="text-sm">Pending Payment</div>
                 <div className="text-lg font-semibold">${influencer.paymentDetails.pendingPayment}</div>
               </div>
             </CardContent>
@@ -147,27 +147,29 @@ const InfluencerDataPage: React.FC = () => {
         ))}
       </div>
 
-      <h2 className="text-2xl font-bold text-[#003654] mb-4">Subscribers Details</h2>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Subscriber Name</TableHead>
-            <TableHead>Date Subscribed</TableHead>
-            <TableHead>Influencer</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {influencers.flatMap((influencer) =>
-            influencer.subscribers.map((subscriber) => (
-              <TableRow key={subscriber.id}>
-                <TableCell>{subscriber.name}</TableCell>
-                <TableCell>{format(new Date(subscriber.date), 'yyyy-MM-dd')}</TableCell>
-                <TableCell>{influencer.name}</TableCell>
-              </TableRow>
-            ))
-          )}
-        </TableBody>
-      </Table>
+      <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-[#003654] mb-4">Subscribers Details</h2>
+      <div className="overflow-x-auto">
+        <Table className="min-w-full">
+          <TableHeader>
+            <TableRow>
+              <TableHead>Subscriber Name</TableHead>
+              <TableHead>Date Subscribed</TableHead>
+              <TableHead>Influencer</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {influencers.flatMap((influencer) =>
+              influencer.subscribers.map((subscriber) => (
+                <TableRow key={subscriber.id}>
+                  <TableCell>{subscriber.name}</TableCell>
+                  <TableCell>{format(new Date(subscriber.date), 'yyyy-MM-dd')}</TableCell>
+                  <TableCell>{influencer.name}</TableCell>
+                </TableRow>
+              ))
+            )}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 };

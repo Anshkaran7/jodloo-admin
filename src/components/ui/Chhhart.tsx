@@ -1,7 +1,7 @@
 "use client"
 
-import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
+import { TrendingUp } from "lucide-react";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 import {
   Card,
@@ -10,13 +10,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart"
+} from "@/components/ui/chart";
 
 // Sample data for the statistics
 const totalUsers = 1000;
@@ -46,7 +46,7 @@ export function StatisticsChart() {
       </CardHeader>
       <CardContent className="p-6">
         <ChartContainer config={chartConfig}>
-          <BarChart accessibilityLayer data={chartData}>
+          <BarChart width={500} height={300} data={chartData}>
             <CartesianGrid vertical={false} stroke="#e2e8f0" />
             <XAxis
               dataKey="name"
@@ -73,7 +73,7 @@ export function StatisticsChart() {
         </div>
       </CardFooter>
     </Card>
-  )
+  );
 }
 
 export default StatisticsChart;

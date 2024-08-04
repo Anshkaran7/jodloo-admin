@@ -171,7 +171,7 @@ const NotificationsPage: React.FC = () => {
     <div className="p-4">
       <Toaster position='bottom-right'/>
       <Tab.Group>
-        <Tab.List className="flex space-x-1 bg-blue-900/90 p-1">
+        <Tab.List className="flex space-x-1 bg-blue-900/90 p-1 rounded-lg">
           <Tab
             className={({ selected }) =>
               selected
@@ -203,7 +203,7 @@ const NotificationsPage: React.FC = () => {
                 onChange={(e) => setMessage(e.target.value)}
               ></textarea>
             </div>
-            <div className="mb-4 flex space-x-4">
+            <div className="mb-4 flex flex-wrap space-x-4">
               <select
                 title='Select Category'
                 className="p-2 border rounded-lg"
@@ -227,10 +227,10 @@ const NotificationsPage: React.FC = () => {
               />
             </div>
             <div className="mb-4">
-              <Button onClick={handleSendNotification} className="bg-[#003654] text-white">Send Notification</Button>
+              <Button onClick={handleSendNotification} className="bg-[#003654] text-white w-full sm:w-auto">Send Notification</Button>
             </div>
             <div className="overflow-x-auto bg-white p-4 rounded-lg shadow-md">
-              <div className="flex items-center py-4">
+              <div className="flex items-center py-4 flex-wrap gap-2">
                 <Input
                   placeholder="Filter emails..."
                   value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}

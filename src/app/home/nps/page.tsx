@@ -252,8 +252,8 @@ const NPSPage: React.FC = () => {
             <TableFooter>
               <TableRow>
                 <TableCell colSpan={columns.length}>
-                  <div className="flex justify-between items-center">
-                    <div>
+                  <div className="flex flex-col md:flex-row justify-between items-center">
+                    <div className="mb-2 md:mb-0">
                       Showing {table.getRowModel().rows.length} of {initialNPSRatings.length} results
                     </div>
                     <div className="flex space-x-2">

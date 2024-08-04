@@ -49,8 +49,8 @@ const Home: React.FC = () => {
   }
 
   return (
-    <main className="flex h-screen bg-gray-100 flex-col items-center justify-center p-24">
-      <Card className="w-[410px] shadow-xl">
+    <main className="flex h-screen bg-gray-100 flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
+      <Card className="w-full max-w-md shadow-xl">
         <Toaster />
         <CardHeader className="flex flex-col items-center">
           <Image
@@ -81,7 +81,7 @@ const Home: React.FC = () => {
             <button
               type="button"
               onClick={togglePasswordVisibility}
-              className="absolute inset-y-0 right-0 bottom-0 flex items-center px-2"
+              className="absolute inset-y-0 right-0 flex items-center px-2"
             >
               {showPassword ? (
                 <FiEyeOff className="text-xl text-gray-500" />
