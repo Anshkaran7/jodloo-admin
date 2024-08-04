@@ -1,25 +1,54 @@
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./table";
+import React from 'react';
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table';
 
-const PromoCodeTable: React.FC<{ promoCodes: any[] }> = ({ promoCodes }) => {
+type PromoCode = {
+  id: number;
+  name: string;
+  code: string;
+  discount: number;
+};
+
+type PromoCodeTableProps = {
+  promoCodes: PromoCode[];
+  searchQuery: string;
+};
+
+const PromoCodeTable: React.FC<PromoCodeTableProps> = ({ promoCodes, searchQuery }) => {
+  const filteredPromoCodes = promoCodes.filter(
+    (promoCode) =>
+      (promoCode.name?.toLowerCase() ?? '').includes(searchQuery.toLowerCase()) ||
+      (promoCode.code?.toLowerCase() ?? '').includes(searchQuery.toLowerCase())
+  );
+
   return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead>Promo Code</TableHead>
-          <TableHead>Discount</TableHead>
-          <TableHead>Influencer</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {promoCodes.map((promoCode, index) => (
-          <TableRow key={index}>
-            <TableCell>{promoCode.code}</TableCell>
-            <TableCell>{promoCode.discount}%</TableCell>
-            <TableCell>{promoCode.influencer}</TableCell>
+    <div className="overflow-x-auto bg-white p-4 rounded-lg shadow-md">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Name</TableHead>
+            <TableHead>Code</TableHead>
+            <TableHead>Discount</TableHead>
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+        </TableHeader>
+        <TableBody>
+          {filteredPromoCodes.length > 0 ? (
+            filteredPromoCodes.map((promoCode) => (
+              <TableRow key={promoCode.id}>
+                <TableCell>Alice</TableCell>
+                <TableCell>{promoCode.code}</TableCell>
+                <TableCell>{promoCode.discount}%</TableCell>
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={3} className="text-center">
+                No results found.
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+    </div>
   );
 };
 

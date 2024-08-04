@@ -1,13 +1,16 @@
 'use client'
+
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import PromoCodeTable from '@/components/ui/PromoCodeList';
 import PromoCodeModal from '@/components/ui/PromoCodeForm';
+import { Input } from '@/components/ui/input';
 
 const PromoCodesPage: React.FC = () => {
   const [promoCodes, setPromoCodes] = useState<any[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleAddPromoCode = (promoCode: any) => {
     setPromoCodes([...promoCodes, promoCode]);
@@ -16,8 +19,14 @@ const PromoCodesPage: React.FC = () => {
   return (
     <div className="relative p-4">
       <h1 className="text-2xl font-bold text-[#003654] mb-4">Promo Codes</h1>
+      <Input
+        placeholder="Search by name or code"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className="mb-4"
+      />
       {promoCodes.length > 0 ? (
-        <PromoCodeTable promoCodes={promoCodes} />
+        <PromoCodeTable promoCodes={promoCodes} searchQuery={searchQuery} />
       ) : (
         <div className="p-4 bg-white border rounded-lg text-center">
           <p className="text-gray-500">There are no promo codes available. Please add a new promo code to get started.</p>
