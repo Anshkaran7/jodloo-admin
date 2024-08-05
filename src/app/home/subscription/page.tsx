@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import * as React from "react"
+import { useState, useEffect } from 'react';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -155,15 +155,15 @@ const columns: ColumnDef<User>[] = [
   },
 ]
 
-export function SubscriptionManagementPage() {
-  const [sorting, setSorting] = React.useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
-  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
-  const [rowSelection, setRowSelection] = React.useState({})
-  const [users, setUsers] = React.useState(initialUsers)
-  const [searchQuery, setSearchQuery] = React.useState('')
+export default function SubscriptionManagementPage() {
+  const [sorting, setSorting] = useState<SortingState>([])
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
+  const [rowSelection, setRowSelection] = useState({})
+  const [users, setUsers] = useState(initialUsers)
+  const [searchQuery, setSearchQuery] = useState('')
 
-  React.useEffect(() => {
+  useEffect(() => {
     users.forEach(user => {
       if (user.isPremium && user.premiumDaysLeft <= 7) {
         toast(`Reminder: ${user.name}'s premium subscription is about to expire in ${user.premiumDaysLeft} days.`)
@@ -358,5 +358,3 @@ export function SubscriptionManagementPage() {
     </div>
   )
 }
-
-export default SubscriptionManagementPage
