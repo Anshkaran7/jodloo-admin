@@ -18,9 +18,6 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { toast, Toaster } from 'react-hot-toast';
@@ -110,6 +107,7 @@ const NotificationsPage: React.FC = () => {
   const [newCategory, setNewCategory] = useState('');
   const [categories, setCategories] = useState<string[]>(['Goals', 'Investments', 'Budget', 'Udhaar', 'Transactions']);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [interval, setInterval] = useState('');
 
   const table = useReactTable<User>({
     data: users,
@@ -145,6 +143,7 @@ const NotificationsPage: React.FC = () => {
     setRowSelection({});
     setMessage('');
     setScheduleDate(null);
+    setInterval('');
   };
 
   const handleAddCategory = () => {
@@ -194,16 +193,92 @@ const NotificationsPage: React.FC = () => {
         <Tab.Panels className="mt-2">
           <Tab.Panel>
             <h1 className="text-2xl font-bold text-[#003654] mb-4">Send Notifications</h1>
-            <div className="mb-4">
-              <textarea
-                className="w-full p-2 border rounded-lg"
-                rows={5}
-                placeholder="Enter your message here..."
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-              ></textarea>
+            <div className="mb-4 flex space-x-4">
+              <Button
+                className="bg-blue-500 text-white hover:bg-blue-700"
+                onClick={() => setMessage('Daily Progress Notification')}
+              >
+                Daily Progress Notification
+              </Button>
+              <Button
+                className="bg-green-500 text-white hover:bg-green-700"
+                onClick={() => setMessage('')}
+              >
+                Custom Text Notification
+              </Button>
             </div>
-            <div className="mb-4 flex flex-wrap space-x-4">
+            {message === 'Daily Progress Notification' && (
+              <div className="mb-4">
+                <h2 className="text-lg font-semibold mb-2">Control Settings:</h2>
+                <div className="mb-4">
+                  <label className="block mb-2">Set or adjust timing for daily progress notifications:</label>
+                  <DatePicker
+                    selected={scheduleDate}
+                    onChange={(date: Date | null) => setScheduleDate(date)}
+                    showTimeSelect
+                    timeFormat="HH:mm"
+                    timeIntervals={15}
+                    dateFormat="MMMM d, yyyy h:mm aa"
+                    placeholderText="Schedule Notification"
+                    className="p-2 border rounded-lg w-full"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block mb-2">Define intervals:</label>
+                  <select
+                  title='Select Interval'
+                    className="p-2 border rounded-lg w-full"
+                    value={interval}
+                    onChange={(e) => setInterval(e.target.value)}
+                  >
+                    <option value="">Select Interval</option>
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                  </select>
+                </div>
+              </div>
+            )}
+            {message === '' && (
+              <div className="mb-4">
+                <h2 className="text-lg font-semibold mb-2">Compose Notification:</h2>
+                <div className="mb-4">
+                  <textarea
+                    className="w-full p-2 border rounded-lg"
+                    rows={5}
+                    placeholder="Enter your message here..."
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                  ></textarea>
+                </div>
+                <div className="mb-4">
+                  <label className="block mb-2">Set delivery time:</label>
+                  <DatePicker
+                    selected={scheduleDate}
+                    onChange={(date: Date | null) => setScheduleDate(date)}
+                    showTimeSelect
+                    timeFormat="HH:mm"
+                    timeIntervals={15}
+                    dateFormat="MMMM d, yyyy h:mm aa"
+                    placeholderText="Schedule Notification"
+                    className="p-2 border rounded-lg w-full"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block mb-2">Define intervals:</label>
+                  <select
+                  title='Select Interval'
+                    className="p-2 border rounded-lg w-full"
+                    value={interval}
+                    onChange={(e) => setInterval(e.target.value)}
+                  >
+                    <option value="none">None</option>
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                  </select>
+                </div>
+              </div>
+            )}
+            <div className="mb-4">
               <select
                 title='Select Category'
                 className="p-2 border rounded-lg"
@@ -215,16 +290,6 @@ const NotificationsPage: React.FC = () => {
                   <option key={cat} value={cat}>{cat}</option>
                 ))}
               </select>
-              <DatePicker
-                selected={scheduleDate}
-                onChange={(date: Date | null) => setScheduleDate(date)}
-                showTimeSelect
-                timeFormat="HH:mm"
-                timeIntervals={15}
-                dateFormat="MMMM d, yyyy h:mm aa"
-                placeholderText="Schedule Notification"
-                className="p-2 border rounded-lg"
-              />
             </div>
             <div className="mb-4">
               <Button onClick={handleSendNotification} className="bg-[#003654] text-white w-full sm:w-auto">Send Notification</Button>

@@ -94,3 +94,29 @@
 .nav-link.active {
   background-color: #0080c7;
 }
+
+
+.cardHover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.cardHover:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.button {
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #1a73e8;
+}
+
+.input {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input:focus {
+  border-color: #1a73e8;
+  box-shadow: 0 0 5px rgba(26, 115, 232, 0.5);
+}
