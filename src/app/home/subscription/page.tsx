@@ -1,5 +1,4 @@
-'use client'
-
+'use client'; 
 import { useState, useEffect } from 'react';
 import {
   ColumnDef,
@@ -12,20 +11,19 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table"
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
+} from "@tanstack/react-table";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -33,7 +31,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 import { toast, Toaster } from 'react-hot-toast';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserShield, faUser, faChevronDown } from '@fortawesome/free-solid-svg-icons';
@@ -42,16 +40,16 @@ const initialUsers = [
   { id: 1, name: 'Alice', email: 'alice@example.com', isPremium: false, subscriptionDate: '2024-01-01', premiumDaysLeft: 0 },
   { id: 2, name: 'Bob', email: 'bob@example.com', isPremium: true, subscriptionDate: '2024-01-10', premiumDaysLeft: 15 },
   // Add more user data as needed
-]
+];
 
 export type User = {
-  id: number
-  name: string
-  email: string
-  isPremium: boolean
-  subscriptionDate: string
-  premiumDaysLeft: number
-}
+  id: number;
+  name: string;
+  email: string;
+  isPremium: boolean;
+  subscriptionDate: string;
+  premiumDaysLeft: number;
+};
 
 const columns: ColumnDef<User>[] = [
   {
@@ -90,11 +88,12 @@ const columns: ColumnDef<User>[] = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="flex items-center"
         >
           Email
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
     cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
   },
@@ -102,12 +101,12 @@ const columns: ColumnDef<User>[] = [
     accessorKey: "isPremium",
     header: "Premium Status",
     cell: ({ row }) => {
-      const isPremium = row.getValue("isPremium")
+      const isPremium = row.getValue("isPremium");
       return (
         <span className={`px-2 py-1 rounded-full text-white ${isPremium ? 'bg-green-500' : 'bg-gray-500'}`}>
           {isPremium ? 'Premium' : 'Standard'}
         </span>
-      )
+      );
     },
   },
   {
@@ -128,7 +127,7 @@ const columns: ColumnDef<User>[] = [
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const user = row.original
+      const user = row.original;
 
       return (
         <DropdownMenu>
@@ -150,29 +149,29 @@ const columns: ColumnDef<User>[] = [
             <DropdownMenuItem>Edit user</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      )
+      );
     },
   },
-]
+];
 
 export default function SubscriptionManagementPage() {
-  const [sorting, setSorting] = useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
-  const [rowSelection, setRowSelection] = useState({})
-  const [users, setUsers] = useState(initialUsers)
-  const [searchQuery, setSearchQuery] = useState('')
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = useState({});
+  const [users, setUsers] = useState(initialUsers);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     users.forEach(user => {
       if (user.isPremium && user.premiumDaysLeft <= 7) {
-        toast(`Reminder: ${user.name}'s premium subscription is about to expire in ${user.premiumDaysLeft} days.`)
+        toast(`Reminder: ${user.name}'s premium subscription is about to expire in ${user.premiumDaysLeft} days.`);
       }
       if (!user.isPremium) {
-        toast(`Hey ${user.name}, consider upgrading to a premium subscription!`)
+        toast(`Hey ${user.name}, consider upgrading to a premium subscription!`);
       }
-    })
-  }, [users])
+    });
+  }, [users]);
 
   const table = useReactTable({
     data: users,
@@ -191,35 +190,47 @@ export default function SubscriptionManagementPage() {
       columnVisibility,
       rowSelection,
     },
-  })
+  });
 
   const togglePremiumStatus = (id: number) => {
     setUsers(users.map(user =>
       user.id === id ? { ...user, isPremium: !user.isPremium } : user
-    ))
-  }
+    ));
+  };
 
-  const setSubscription = (id: number, days: number) => {
-    const newDate = new Date()
-    newDate.setDate(newDate.getDate() + days)
-    setUsers(users.map(user =>
-      user.id === id ? { ...user, subscriptionDate: newDate.toISOString().split('T')[0], premiumDaysLeft: days } : user
-    ))
-  }
+  const setSubscriptionForPremiumUsers = (days: number) => {
+    const newDate = new Date();
+    newDate.setDate(newDate.getDate() + days);
+    const newSubscriptionDate = newDate.toISOString().split('T')[0];
+
+    setUsers(users.map(user => (
+      user.isPremium ? { ...user, subscriptionDate: newSubscriptionDate, premiumDaysLeft: days } : user
+    )));
+  };
+
+  const setSubscriptionForFreeUsers = (days: number) => {
+    const newDate = new Date();
+    newDate.setDate(newDate.getDate() + days);
+    const newSubscriptionDate = newDate.toISOString().split('T')[0];
+
+    setUsers(users.map(user => (
+      !user.isPremium ? { ...user, subscriptionDate: newSubscriptionDate, premiumDaysLeft: days } : user
+    )));
+  };
 
   const grantPremiumToNewUsers = (days: number) => {
     setUsers(users.map(user =>
       !user.isPremium ? { ...user, isPremium: true, subscriptionDate: new Date().toISOString().split('T')[0], premiumDaysLeft: days } : user
-    ))
-  }
+    ));
+  };
 
   const filteredUsers = users.filter(user =>
     user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     user.email.toLowerCase().includes(searchQuery.toLowerCase())
-  )
+  );
 
-  const totalPremiumUsers = users.filter(user => user.isPremium).length
-  const totalFreeUsers = users.filter(user => !user.isPremium).length
+  const totalPremiumUsers = users.filter(user => user.isPremium).length;
+  const totalFreeUsers = users.filter(user => !user.isPremium).length;
 
   return (
     <div className="p-4 sm:p-6 bg-gray-100 min-h-screen w-full">
@@ -233,9 +244,7 @@ export default function SubscriptionManagementPage() {
           onChange={(e) => setSearchQuery(e.target.value)}
           className="flex-grow sm:mr-4 p-2 border border-gray-300 rounded-lg shadow-sm"
         />
-        <Button onClick={() => grantPremiumToNewUsers(30)} className="bg-blue-600 text-white 
-        whitespace-normal w-full sm:w-auto
-        px-4 py-2 rounded-lg shadow-md hover:bg-blue-700">
+        <Button onClick={() => grantPremiumToNewUsers(30)} className="bg-blue-600 text-white whitespace-normal w-full sm:w-auto px-4 py-2 rounded-lg shadow-md hover:bg-blue-700">
           Grant 30 Days Premium to New Users
         </Button>
       </div>
@@ -250,6 +259,23 @@ export default function SubscriptionManagementPage() {
             <div className="text-sm font-medium text-gray-500">Total Premium Users</div>
           </div>
         </div>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button className="w-full sm:w-auto bg-blue-500 whitespace-normal text-white hover:bg-blue-600">
+                Set Subscription Days for Premium Users
+                <FontAwesomeIcon icon={faChevronDown} className="ml-2" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              {[7, 15, 30, 60, 90].map(days => (
+                <DropdownMenuItem key={days} onClick={() => setSubscriptionForPremiumUsers(days)}>
+                  {days} days
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
         <div className="flex items-center space-x-4">
           <div className="p-4 bg-gray-100 text-gray-600 rounded-full">
             <FontAwesomeIcon icon={faUser} className="text-2xl" />
@@ -259,6 +285,23 @@ export default function SubscriptionManagementPage() {
             <div className="text-sm font-medium text-gray-500">Total Free Users</div>
           </div>
         </div>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button className="w-full sm:w-auto bg-blue-500 whitespace-normal text-white hover:bg-blue-600">
+                Set Subscription Days for Free Users
+                <FontAwesomeIcon icon={faChevronDown} className="ml-2" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              {[7, 15, 30, 60, 90].map(days => (
+                <DropdownMenuItem key={days} onClick={() => setSubscriptionForFreeUsers(days)}>
+                  {days} days
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
 
       <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg overflow-x-auto">
@@ -266,18 +309,16 @@ export default function SubscriptionManagementPage() {
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  )
-                })}
+                {headerGroup.headers.map((header) => (
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </TableHead>
+                ))}
               </TableRow>
             ))}
           </TableHeader>
@@ -303,21 +344,6 @@ export default function SubscriptionManagementPage() {
                     >
                       {row.original.isPremium ? 'Deactivate Premium' : 'Activate Premium'}
                     </button>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button className="w-full bg-blue-500 text-white hover:bg-blue-600">
-                          Set Subscription Days
-                          <FontAwesomeIcon icon={faChevronDown} className="ml-2" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        {[7, 15, 30, 60, 90].map(days => (
-                          <DropdownMenuItem key={days} onClick={() => setSubscription(row.original.id, days)}>
-                            {days} days
-                          </DropdownMenuItem>
-                        ))}
-                      </DropdownMenuContent>
-                    </DropdownMenu>
                   </TableCell>
                 </TableRow>
               ))
@@ -356,5 +382,5 @@ export default function SubscriptionManagementPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
